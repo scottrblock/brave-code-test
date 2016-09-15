@@ -1,5 +1,8 @@
 $icon-font-path: '../fonts/';
 
+// bower:scss
+@import "bower_components/normalize-css/normalize";
+// endbower
 
 .browserupgrade {
   margin: 0.2em 0;

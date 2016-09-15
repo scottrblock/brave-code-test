@@ -2,9 +2,9 @@
   "name": "brave-code-test",
   "private": true,
   "dependencies": {
-    "modernizr": "~2.8.1"
+    "modernizr": "~2.8.1",
+    "normalize-css": "~4.2.0"
   },
-  
   "devDependencies": {
     "chai": "~3.5.0",
     "mocha": "~3.0.2"
