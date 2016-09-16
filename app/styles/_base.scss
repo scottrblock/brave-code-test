@@ -1,0 +1,26 @@
+body {
+  font-family: $body-font;
+  font-size: 14px;
+  background-color: $background-grey-light;
+  color: $text-color;
+}
+
+h1{
+  margin: 0;
+  font-size: 18px;
+  color: $text-color-dark;
+}
+
+
+a{
+  text-decoration: none;
+}
+
+em{
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+select, textarea, input{
+  font-size: 16px;
+}

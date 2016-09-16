@@ -1,0 +1,29 @@
+.alert{
+  @include sticky(100%, "top", $header-height);
+  @include box-shadow(0, 2px, 5px, 1px, rgba(0, 0, 0, 0.25));
+  @include transition-transform();
+  
+  z-index: 10;
+
+  padding: $header-spacing;
+  color: $white;
+  text-align: center;
+
+  /*
+    Move the alert. In modern browsers, transition-transform mixin is
+    used to also animate it.
+  */
+  transform: translate(0%, ($header-height * -2));
+
+  &.alert--is-visible{
+    transform: translate(0%, 0%);
+  }
+
+}
+
+/*
+  Class added via scripts/lib/form.js
+*/
+.alert--is-error{
+  background-color: $error-color;
+}

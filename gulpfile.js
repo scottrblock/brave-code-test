@@ -4,12 +4,14 @@ const gulpLoadPlugins = require('gulp-load-plugins');
 const browserSync = require('browser-sync');
 const del = require('del');
 const wiredep = require('wiredep').stream;
+const concat = require('gulp-concat');
+
 
 const $ = gulpLoadPlugins();
 const reload = browserSync.reload;
 
 gulp.task('styles', () => {
-  return gulp.src('app/styles/*.scss')
+  return gulp.src('app/styles/main.scss')
     .pipe($.plumber())
     .pipe($.sourcemaps.init())
     .pipe($.sass.sync({
@@ -23,10 +25,11 @@ gulp.task('styles', () => {
 });
 
 gulp.task('scripts', () => {
-  return gulp.src('app/scripts/**/*.js')
+  return gulp.src(['app/scripts/utilities/**/*.js', 
+                    'app/scripts/lib/**/*.js', 
+                    'app/scripts/main.js'] )
     .pipe($.plumber())
-    .pipe($.sourcemaps.init())
-    .pipe($.sourcemaps.write('.'))
+    .pipe(concat('all.js'))
     .pipe(gulp.dest('.tmp/scripts'))
     .pipe(reload({stream: true}));
 });

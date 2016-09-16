@@ -1,0 +1,24 @@
+.header{
+  @include sticky(100%, "top", 0);
+  
+  z-index: 20;
+  height: $header-height;
+  
+  background-color: $brand-color;
+  padding: $header-spacing;
+}
+
+.header__title{
+  margin-left: $header-gutter;
+  color: $white;
+}
+
+.header__menu{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: $menu-width;
+  height: $header-height;
+  
+  background-color: $action-color;
+}

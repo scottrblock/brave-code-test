@@ -1,0 +1,27 @@
+/*
+  No longer need prefixes for box-shadow or transform for modern 
+  browsers, but transitions are used in the mixins to support old 
+  versions of ff, chrome, safari, and opera 
+*/
+@mixin box-shadow($top, $left, $blur, $spread, $color) {
+  -webkit-box-shadow: $top $left $blur $spread $color;
+  -moz-box-shadow: $top $left $blur $spread $color;
+  box-shadow: $top $left $blur $spread $color;
+}
+
+@mixin transition-transform(){
+  transition: transform .3s ease;
+  -webkit-transition: .3s ease;
+}
+
+
+/*
+  Make an element stick to the $top_or_bottom of the page at a given
+  $offset. fixed elements break the flow of the page, so an explicit
+  width is helpful
+*/
+@mixin sticky($width, $top_or_bottom, $offset){
+  position: fixed;
+  width: $width;
+  #{$top_or_bottom}: $offset;
+}

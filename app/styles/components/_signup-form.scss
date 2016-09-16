@@ -1,0 +1,69 @@
+.signup-form__form-group{
+  margin-bottom: $input-spacing;
+  position: relative;
+}
+
+.form-group__label{
+  position: absolute;
+  left: 0;
+  top: $input-offset;
+  z-index: 10;
+  
+  margin-left: $input-spacing;
+  color: $text-color-light;
+}
+
+.signup-form__input{
+  box-sizing: content-box;
+
+  height: $spacing;
+  width: 75%;
+  
+  padding-left: 25%;
+  border: 2px solid transparent;
+  border-radius: 3px;
+}
+  
+/*
+  class controlled in scripts/lib/form.js
+*/
+.signup-form__input--has-error{
+  border-color: $error-color;
+}
+
+.submit-form__toggle-password{
+  display: block;
+  position: absolute;
+  right: $nudge;
+  top: $input-offset;
+  width: $eye-width;
+  height: $eye-height;
+
+  background: url('../images/toggle-password-icon.svg');
+}
+
+.submit-wrap__button{
+  height: $input-height;
+  width: $button-width;
+
+  margin-top: $input-spacing;
+  border: 0;
+  border-radius: 3px;
+  background-color: $action-color;
+  color: $white;
+  cursor: pointer;
+
+  &:active{
+    background-color: $action-color-alt;
+  }
+}
+
+.submit-wrap__link{
+  float: right;
+  margin-top: ($input-spacing + $nudge);
+  color: $text-color;
+
+  &:active{
+    color: $text-color-dark;
+  }
+}

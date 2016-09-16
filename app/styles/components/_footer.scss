@@ -1,0 +1,15 @@
+.footer{
+  @include sticky(100%, "bottom", 0);
+
+  height: $footer-height;
+  
+  padding: 0 $gutter;
+  background-color: $background-grey;
+}
+
+.footer__text{
+  position: absolute;
+  bottom: $footer-bottom-padding;
+
+  color: $text-color-light;
+}
