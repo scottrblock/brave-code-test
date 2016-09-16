@@ -46,6 +46,11 @@ The project's JavaScript is located at `app/scripts`. The main file (`main.js`) 
 
 The gulpfile loads the utilities first, then lib files, and finally `main.js`. Anything used by the lib files are put in the utilities folder, and `main.js` only calls functions defined in the lib files. Eschewing es6 modules or a different JavaScript module standard in favor of this straightforward approach keeps the build process simple, and ensures no new features of JavaScript creep into older browsers. For a project of this size, I thought this was most appropriate, but exportable JavaScript modules certainly have their merit.
 
+## Browser Support
+This has been tested in modern browsers, modern mobile browsers, and IE back to version 9. The CSS animations work in IE back to version 10, but gracefully degrade in 9. The functionality still works as intended, just without the animation. Given IE 9's market share, providing this level of functionality seemed perfectly reasonable.
+
+Media queries are absent from this project, as it was not meant to work on a full-size desktop browser. Percentage-based layouts, fixed elements, and floats work in tandem to make the project render well on a variety of viewport sizes.
+
 ## TODO
 
 - Make the error alerts fade away like in the reference sprite. It currently just slides back up, the way it slides down
