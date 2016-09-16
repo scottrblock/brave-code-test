@@ -1,3 +1,6 @@
+// bower:scss
+// endbower
+
 /*
   Contents
     Variables............Configuring Sass variables
@@ -54,6 +57,7 @@ $alt-menu-item-height: 45px;
 
 $input-spacing: 10px;
 $input-text-gutter: 80px;
+$input-offset: 8px;
 $button-width: 100px;
 
 $flag-width: 41px;
@@ -61,7 +65,6 @@ $flag-height: 48px;
 
 $eye-width: 23px;
 $eye-height: 16px;
-$eye-offset: 8px;
 
 /*
   No longer need prefixes for box-shadow or transform for modern 
@@ -119,6 +122,8 @@ h1{
   font-size: 12px;
 }
 
+
+
 a{
   text-decoration: none;
 }
@@ -128,13 +133,29 @@ em{
   font-style: normal;
 }
 
+select, textarea, input{
+  font-size: 16px;
+}
+
 .u-vertical-spacing{
   padding-top: $spacing;
 }
 
+.u-screen-read-only{
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  border: 0;
+}
+
 .header{
   @include sticky(100%, "top", 0);
-
+  
+  z-index: 20;
   height: $header-height;
   
   background-color: $brand-color;
@@ -160,7 +181,9 @@ em{
   @include sticky(100%, "top", $header-height);
   @include box-shadow(0, 2px, 5px, 1px, rgba(0, 0, 0, 0.25));
   @include transition-transform();
-    
+  
+  z-index: 10;
+
   padding: $header-spacing;
   color: $white;
   text-align: center;
@@ -234,7 +257,7 @@ em{
   width: $flag-width;
   height: $flag-height;
 
-  background: url('/images/brave-logo.svg');
+  background: url('../images/brave-logo.svg');
 }
 
 .signup-form__form-group{
@@ -242,23 +265,13 @@ em{
   position: relative;
 }
 
-.signup-form__label-wrap{
-  box-sizing: content-box;
-  
+.form-group__label{
   position: absolute;
   left: 0;
-  height: $spacing;
+  top: $input-offset;
   z-index: 10;
   
   margin-left: $input-spacing;
-  border: 2px solid transparent;
-}
-
-.label-wrap__label{
-  display: table-cell;
-  vertical-align: middle;
-  height: $spacing;
-
   color: $text-color-light;
 }
 
@@ -281,11 +294,11 @@ em{
   display: block;
   position: absolute;
   right: $nudge;
-  top: $eye-offset;
+  top: $input-offset;
   width: $eye-width;
   height: $eye-height;
 
-  background: url('/images/toggle-password-icon.svg');
+  background: url('../images/toggle-password-icon.svg');
 }
 
 .submit-wrap__button{
@@ -336,6 +349,7 @@ em{
   @include box-shadow(0px, -1px, 2px, 1px, rgba(0,0,0,.3));
   @include transition-transform();
   
+  z-index: 30;
   right: 0;
   height: 100%;
   

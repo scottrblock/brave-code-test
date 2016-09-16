@@ -1,6 +1,7 @@
 
 /*
-  Utility classes to make class manipulation easier
+  Utility functions to make class manipulation easier and support
+  cross browser event propegation
 */
 var Utility = function() {
   return {
@@ -29,6 +30,18 @@ var Utility = function() {
       } else {
         this.removeClass($element, className);
       }
+    },
+
+    stopEvent: function(e){
+      if( !e ){
+        e = window.event;
+      }
+
+      if( e.preventDefault ){
+        e.preventDefault();
+      } else {
+        e.returnValue = false;
+      }
     }
   }
 }();
@@ -47,7 +60,8 @@ var Menu = function() {
       return document.getElementById('hide-menu-link')
     },
 
-    show: function() {
+    show: function(event) {
+      Utility.stopEvent(event);
 
       /*
         "this" is now the event, not the Menu so have to explicitly use
@@ -55,21 +69,22 @@ var Menu = function() {
       */
       Utility.addClass(Menu.domElement(), 'full-menu--is-visible')
       
-      event.preventDefault();
       return false;
     },
 
     hide: function(event) {
+      Utility.stopEvent(event);
       Utility.removeClass(Menu.domElement(), 'full-menu--is-visible');
 
-      event.preventDefault();
       return false;
     },
 
     listenForMenuClicks: function() {
       
       /*
-        When links to show or hide the menu are clicked, show or hide menu
+        When links to show or hide the menu are clicked, show or hide menu.
+        If this was purely mobile and not being tested in desktop browsers, 
+        touchend would be preferable to click.
       */
       this.showMenuLink().addEventListener('click', this.show);
       this.hideMenuLink().addEventListener('click', this.hide);
@@ -180,23 +195,26 @@ var Form = function() {
         errorMessages.push( this.passwordFormatErrorText() );
       }
 
-      return errorMessages.join("<br>");
+      return errorMessages.join('<br>');
     },
 
-    showErrorMessage: function(message) {
+    updateErrorMessageText: function(message) {
       this.alertElement().innerHTML = message;
-      Utility.addClass(this.alertElement(), 'alert--is-visible')
     },
 
     validate: function(event) {
-      
+      Utility.stopEvent(event);
+
       /*
         Start by validating both fields so appropriate error classes are
         shown if either fails
       */
       var validUsername = Form.validUsername(),
-          validPassword = Form.validPassword();
+          validPassword = Form.validPassword(),
+          errorMessages = Form.constructErrorMessage();
 
+
+      Form.updateErrorMessageText( errorMessages );
 
       /*
         If both inputs are valid, remove error alert
@@ -204,18 +222,15 @@ var Form = function() {
       if( validUsername && validPassword ){
         Utility.removeClass(Form.alertElement(), 'alert--is-visible');
       } else {
-       
-        /*
-          Otherwise show the message with the correct message(s)
-        */
-        Form.showErrorMessage( Form.constructErrorMessage() );
+        Utility.addClass(Form.alertElement(), 'alert--is-visible')
       }
 
-      event.preventDefault();
-      return false
+      return false;
     },
 
     togglePassword: function(event){
+      Utility.stopEvent(event);
+
       var currentType = Form.passwordElement().type;
 
       if( currentType === 'password' ) {
@@ -224,7 +239,6 @@ var Form = function() {
         Form.passwordElement().type = 'password';
       }
 
-      event.preventDefault();
       return false;
     },
 
@@ -240,7 +254,8 @@ var Form = function() {
 
       /*
         When the toggle password link is clicked, toggle the input
-        type of the password
+        type of the password. If this was purely mobile and not being
+        tested in desktop browsers, touchend would be preferable to click.
       */
       this.togglePasswordLink().addEventListener('click', this.togglePassword);
     }
