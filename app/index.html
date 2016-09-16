@@ -3,18 +3,23 @@
   <head>
     <meta charset="utf-8">
     <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width">
     <title>The Brave UX App</title>
 
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <!-- Place favicon.ico in the root directory -->
 
-  
     <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed" rel="stylesheet">
+
+    <!-- Place favicon.ico in the root directory -->
     
+    <!-- build:css styles/vendor.css -->
+    <!-- bower:css -->
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:css styles/main.css -->    
     <link rel="stylesheet" href="styles/main.css">
-    
-    <script src="/bower_components/modernizr/modernizr.js"></script>
+    <!-- endbuild -->
   </head>
   <body>    
     <div class="container">
@@ -34,7 +39,11 @@
 
 
       <div class="content u-vertical-spacing">
-        <div class="brave-logo"></div>
+        <div class="brave-logo">
+          <span class="u-screen-read-only">
+            Brave UX Logo
+          </span>
+        </div>
 
         <div class="text-small login-alert u-vertical-spacing">
           Do <em>not</em> bookmark this page.
@@ -44,24 +53,26 @@
           Sign Up
         </h1>
 
-        <form action="#" id="signup-form" class="signup-form u-vertical-spacing">
+        <form id="signup-form" class="signup-form u-vertical-spacing">
           <div class="signup-form__form-group">
-            <div class="signup-form__label-wrap">
-              <label for="username" class="label-wrap__label">Username</label>
-            </div>
+            <label for="username" class="form-group__label">Username</label>
+
             <input type="text" name="username" id="username" tabindex="1" class="signup-form__input">  
           </div>
           
           <div class="signup-form__form-group">
-            <div class="signup-form__label-wrap">
-              <label for="password" class="label-wrap__label">Password</label>
-            </div>
+            <label for="password" class="form-group__label">Password</label>
+
             <input type="password" name="password" id="password" tabindex="2" class="signup-form__input">  
-            <a href="#" class="submit-form__toggle-password" id="toggle-password-link"></a>
+            <a href="#" class="submit-form__toggle-password" id="toggle-password-link">
+              <span class="u-screen-read-only">
+                Toggle Password
+              </span>
+            </a>
           </div>
 
           <div class="signup-form__submit-wrap">
-            <input type="submit" value="Sign Up" class="submit-wrap__button">
+            <input type="submit" value="Sign Up" class="submit-wrap__button" tabindex="3">
             <a href="#" class="submit-wrap__link">Need Help?</a>
           </div>
         </form>
@@ -94,6 +105,15 @@
     </div>
     
 
+    <!-- build:js scripts/vendor.js -->
+    <!-- bower:js -->
+    <!-- endbower -->
+    <!-- endbuild -->
+    
+    <!-- build:js scripts/plugins.js -->
+    <!-- endbuild -->
+    
+    <!-- build:js scripts/main.js -->
     <script src="scripts/main.js"></script>
-  </body>
+    <!-- endbuild -->  </body>
 </html>
