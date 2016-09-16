@@ -1,93 +1,354 @@
-// bower:scss
+/*
+  Contents
+    Variables............Configuring Sass variables
+    Reset................Basic normalization and box-sizing
+    Helpers.................Text helpers
+    Mixins...............Useful mixins
+    Headings.............H1–H6 styles
+    Page-head............The main page header
+    Page-foot............The main page footer
+    Buttons..............Button elements
+ */
+
+
+ /*
+  Variables............Configuring Sass variables
+*/
+
+$body-font: 'Roboto Condensed', sans-serif;
+
+$brand-color:           #93278f;
+$error-color:           #ed1C24;
+$action-color:          #662d91;
+$action-color-alt:      #4d226d;
+
+$white:                 #fafafa;
+
+$background-grey:       #e0e5e8;
+$background-grey-light: #eceff1;
+
+$text-color-lightest:   #b0bec5;
+$text-color-light:      #78909c;
+$text-color:            #626b76;
+$text-color-dark:       #455a64;
+
+$nudge: 5px;
+$gutter: 25px;
+$header-height: 50px;
+$header-spacing: 15px;
+$header-gutter: 10px;
+
+$menu-gutter: 20px;
+$menu-spacing: 10px;
+$menu-item-height: 40px;
+
+$footer-height: 150px;
+$footer-bottom-padding: 30px;
+$spacing: 25px;
+$input-height: 30px;
+$input-spacing: 15px;
+$menu-width: 31.25%;
+$menu-width-expanded: 68.75%;
+
+$alt-menu-item-height: 45px;
+
+$input-spacing: 10px;
+$input-text-gutter: 80px;
+$button-width: 100px;
+
+$flag-width: 41px;
+$flag-height: 48px;
+
+$eye-width: 23px;
+$eye-height: 16px;
+$eye-offset: 8px;
+
+/*
+  No longer need prefixes for box-shadow or transform for modern 
+  browsers, but transitions are used in the mixins to support old 
+  versions of ff, chrome, safari, and opera */
+
+@mixin box-shadow($top, $left, $blur, $spread, $color) {
+  -webkit-box-shadow: $top $left $blur $spread $color;
+  -moz-box-shadow: $top $left $blur $spread $color;
+  box-shadow: $top $left $blur $spread $color;
+}
+
+@mixin transition-transform(){
+  transition: transform .3s ease;
+  -webkit-transition: .3s ease;
+}
+
+
+@mixin sticky($width, $top_or_bottom, $offset){
+  position: fixed;
+  width: $width;
+  #{$top_or_bottom}: $offset;
+}
+
 @import "bower_components/normalize-css/normalize";
-// endbower
 
-.browserupgrade {
-  margin: 0.2em 0;
-  background: #ccc;
-  color: #000;
-  padding: 0.2em 0;
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
 }
 
-/* Space out content a bit */
+
 body {
-  padding-top: 20px;
-  padding-bottom: 20px;
-  font-family: 'Roboto Condensed', sans-serif;
-
+  font-family: $body-font;
+  font-size: 14px;
+  background-color: $background-grey-light;
+  color: $text-color;
 }
 
-/* Everything but the jumbotron gets side spacing for mobile first views */
-.header,
-.marketing,
-.footer {
-  padding-left: 15px;
-  padding-right: 15px;
+.unicode-symbol{
+  font-family: sans-serif;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: none;
 }
 
-/* Custom page header */
-.header {
-  border-bottom: 1px solid #e5e5e5;
-
-  /* Make the masthead heading the same height as the navigation */
-  h3 {
-    margin-top: 0;
-    margin-bottom: 0;
-    line-height: 40px;
-    padding-bottom: 19px;
-  }
+h1{
+  margin: 0;
+  font-size: 18px;
+  color: $text-color-dark;
 }
 
-/* Custom page footer */
-.footer {
-  padding-top: 19px;
-  color: #777;
-  border-top: 1px solid #e5e5e5;
+.text-small{
+  font-size: 12px;
 }
 
-.container-narrow > hr {
-  margin: 30px 0;
+a{
+  text-decoration: none;
 }
 
-/* Main marketing message and sign up button */
-.jumbotron {
+em{
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+.u-vertical-spacing{
+  padding-top: $spacing;
+}
+
+.header{
+  @include sticky(100%, "top", 0);
+
+  height: $header-height;
+  
+  background-color: $brand-color;
+  padding: $header-spacing;
+}
+
+.header__title{
+  margin-left: $header-gutter;
+  color: $white;
+}
+
+.header__menu{
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: $menu-width;
+  height: $header-height;
+  
+  background-color: $action-color;
+}
+
+.alert{
+  @include sticky(100%, "top", $header-height);
+  @include box-shadow(0, 2px, 5px, 1px, rgba(0, 0, 0, 0.25));
+  @include transition-transform();
+    
+  padding: $header-spacing;
+  color: $white;
   text-align: center;
-  border-bottom: 1px solid #e5e5e5;
-  .btn {
-    font-size: 21px;
-    padding: 14px 24px;
+
+  /*
+    Move the alert. In modern browsers, transition-transform mixin is
+    used to also animate it.
+  */
+  transform: translate(0%, ($header-height * -2));
+
+  &.alert--is-visible{
+    transform: translate(0%, 0%);
+  }
+
+}
+
+.alert--is-error{
+  background-color: $error-color;
+}
+
+.menu__link{
+  display: block;
+  padding: $menu-spacing $menu-gutter;
+  height: $menu-item-height;
+
+  color: $white;
+
+  &:active{
+    background-color: $action-color-alt;
   }
 }
 
-/* Supporting marketing content */
-.marketing {
-  margin: 40px 0;
-  p + h4 {
-    margin-top: 28px;
+.menu__link--large{
+  height: $header-height;
+  padding: $header-spacing $menu-gutter;
+}
+
+.menu__icon{
+  float: right;
+}
+
+.menu__list,
+.menu__list--alt{
+  padding-left: 0;
+  margin-top: 0;
+  list-style-type: none;
+}
+
+.menu__list--alt{
+  background-color: $action-color-alt;
+  margin-bottom: 10px;
+}
+
+.menu__list--alt .menu__list__item{
+  height: $alt-menu-item-height;
+
+  &:first-child{
+    padding-top: $nudge;
+  }
+
+  &:last-child{
+    margin-top: ($nudge);
   }
 }
 
-/* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
-  .container {
-    max-width: 730px;
-  }
+.content{
+  margin: $header-height $gutter $footer-height;
+}
 
-  /* Remove the padding we set earlier */
-  .header,
-  .marketing,
-  .footer {
-    padding-left: 0;
-    padding-right: 0;
-  }
+.brave-logo{
+  width: $flag-width;
+  height: $flag-height;
 
-  /* Space out the masthead */
-  .header {
-    margin-bottom: 30px;
-  }
+  background: url('/images/brave-logo.svg');
+}
 
-  /* Remove the bottom border on the jumbotron for visual effect */
-  .jumbotron {
-    border-bottom: 0;
+.signup-form__form-group{
+  margin-bottom: $input-spacing;
+  position: relative;
+}
+
+.signup-form__label-wrap{
+  box-sizing: content-box;
+  
+  position: absolute;
+  left: 0;
+  height: $spacing;
+  z-index: 10;
+  
+  margin-left: $input-spacing;
+  border: 2px solid transparent;
+}
+
+.label-wrap__label{
+  display: table-cell;
+  vertical-align: middle;
+  height: $spacing;
+
+  color: $text-color-light;
+}
+
+.signup-form__input{
+  box-sizing: content-box;
+
+  height: $spacing;
+  width: 75%;
+  
+  padding-left: 25%;
+  border: 2px solid transparent;
+  border-radius: 3px;
+}
+
+.signup-form__input--has-error{
+  border-color: $error-color;
+}
+
+.submit-form__toggle-password{
+  display: block;
+  position: absolute;
+  right: $nudge;
+  top: $eye-offset;
+  width: $eye-width;
+  height: $eye-height;
+
+  background: url('/images/toggle-password-icon.svg');
+}
+
+.submit-wrap__button{
+  height: $input-height;
+  width: $button-width;
+
+  margin-top: $input-spacing;
+  border: 0;
+  border-radius: 3px;
+  background-color: $action-color;
+  color: $white;
+  cursor: pointer;
+
+  &:active{
+    background-color: $action-color-alt;
   }
 }
+
+.submit-wrap__link{
+  float: right;
+  margin-top: ($input-spacing + $nudge);
+  color: $text-color;
+
+  &:active{
+    color: $text-color-dark;
+  }
+}
+
+.footer{
+  @include sticky(100%, "bottom", 0);
+
+  height: $footer-height;
+  
+  padding: 0 $gutter;
+  background-color: $background-grey;
+}
+
+.footer__text{
+  position: absolute;
+  bottom: $footer-bottom-padding;
+
+  color: $text-color-light;
+}
+
+
+.full-menu{
+  @include sticky($menu-width-expanded, "top", 0);
+  @include box-shadow(0px, -1px, 2px, 1px, rgba(0,0,0,.3));
+  @include transition-transform();
+  
+  right: 0;
+  height: 100%;
+  
+  background-color: $action-color;
+
+  /*
+    Move the menu. In modern browsers, transition-transform mixin is
+    used to also animate it.
+  */
+  transform: translate(100%, 0%);
+
+  &.full-menu--is-visible{
+    transform: translate(0%, 0%);
+  }
+}
+
